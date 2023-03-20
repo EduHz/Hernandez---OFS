@@ -53,9 +53,7 @@ Note over browser: browser starts executing js-code <br/> that requests JSON dat
 browser->>server: https://studies.cs.helsinki.fi/exampleapp/data.json
 server-->>browser: [{"content":"asd","date":"2023-03-19T06:13:39.741Z"}, ...]
 
-note over browser:
-browser executes the event handler
-that renders notes to display
+Note over browser: browser executes the event handler <br/> that renders notes to display
 
 browser->>server : POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
 server-->>browser : {"message":"note created"}
