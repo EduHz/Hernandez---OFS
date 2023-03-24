@@ -1,9 +1,8 @@
-export default function Header({ courseInfo }) {
-  let title = courseInfo.map((res) => res.course);
+export default function Header(props) {
 
   return (
     <>
-      <h1>{title}</h1>;
+      <h1>{props.name}</h1>
     </>
   );
 }

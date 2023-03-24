@@ -1,6 +1,6 @@
-export default function Content(props) {
+export default function Content({ parts }) {
   const Part = () =>
-    props.courseInfo.map((res) => {
+    parts.map((res) => {
       return (
         <p key={res.key}>
           {res.part} {res.exercises}

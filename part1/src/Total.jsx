@@ -1,10 +1,9 @@
-export default function Total({ courseInfo }) {
-  
-  let suma = courseInfo.reduce((n, { exercises }) => n + exercises, 0);
+export default function Total({ parts }) {
+  let sum = parts.reduce((n, { exercises }) => n + exercises, 0);
 
   return (
     <div>
-      <p>Number of exercises {suma}</p>
+      <p>Number of exercises {sum}</p>
     </div>
   );
 }
