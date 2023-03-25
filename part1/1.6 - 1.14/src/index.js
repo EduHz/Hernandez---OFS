@@ -7,8 +7,8 @@ const Button = ({ handleClick, text }) => (
 
 const StatisticLine = ({ text, value }) => (
   <tr>
-    <td className="td-style">{text}</td>
-    <td className="td-style">{value}</td>
+    <td>{text}</td>
+    <td>{value}</td>
   </tr>
 );
 
