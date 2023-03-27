@@ -1,4 +1,4 @@
-export default function Content({ parts }) {
+const Content = ({ parts }) => {
   const Part = () =>
     parts.map((res) => {
       return (
@@ -13,4 +13,6 @@ export default function Content({ parts }) {
       <Part />
     </div>
   );
-}
+};
+
+export default Content;
