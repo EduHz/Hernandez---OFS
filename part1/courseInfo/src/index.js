@@ -1,15 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const Content = ({ parts }) => <Part parts={parts} />;
-
-const Header = ({ name }) => <h1>{name}</h1>;
-
-const Total = ({ parts }) => {
-  let sum = parts.reduce((n, { exercises }) => n + exercises, 0);
-  return <p>Number of exercises {sum}</p>;
-};
-
 const Part = ({ parts }) => {
   return parts.map((res) => (
     <p key={res.key}>
@@ -18,8 +9,16 @@ const Part = ({ parts }) => {
   ));
 };
 
-const App = () => {
+const Content = ({ parts }) => <Part parts={parts} />;
 
+const Total = ({ parts }) => {
+  let sum = parts.reduce((n, { exercises }) => n + exercises, 0);
+  return <p>Number of exercises {sum}</p>;
+};
+
+const Header = ({ name }) => <h1>{name}</h1>;
+
+const App = () => {
   const course = {
     name: "Half Stack application development",
     parts: [
