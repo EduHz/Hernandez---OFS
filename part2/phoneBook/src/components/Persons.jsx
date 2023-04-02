@@ -2,7 +2,7 @@ const Persons = ({ filteredPersons }) => {
   return (
     <>
       {filteredPersons.map((res) => (
-        <p>
+        <p key={res.name}>
           {res.name} {res.number}
         </p>
       ))}
