@@ -12,9 +12,7 @@ const Card = ({ country }) => {
       )
       .then((res) => setPais(res.data.current))
       .catch((error) => console.log(error));
-  }, [pais]);
-
-  console.log(pais);
+  }, [country.name.official]);
 
   return (
     <div>
