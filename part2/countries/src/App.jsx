@@ -1,21 +1,45 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 
-const Card = (props) => {
-  console.log(props.country);
+const Card = ({ country }) => {
+  const [pais, setPais] = useState(null);
+  // const countryNameRef = useRef(country.name.official);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://api.weatherstack.com/current?access_key=0a82bdc4c6628b5f968dd500d30a8857&query=${country.name.official}`
+      )
+      .then((res) => setPais(res.data.current))
+      .catch((error) => console.log(error));
+  }, [pais]);
+
+  console.log(pais);
 
   return (
     <div>
-      <h1>{props.country.name.common}</h1>
-      <div>capital {props.country.capital}</div>
-      <div>population {props.country.population}</div>
+      <h1>{country.name.official}</h1>
+      <div>capital {country.capital}</div>
+      <div>population {country.population}</div>
       <h3>languages</h3>
       <ul>
-        {Object.values(props.country.languages).map((lang) => (
+        {Object.values(country.languages).map((lang) => (
           <li key={lang}>{lang}</li>
         ))}
       </ul>
-      <img src={props.country.flags.png} alt={props.country.flags.alt} />
+      <img src={country.flags.png} alt={country.flags.alt} />
+      <h2>Weather of {country.name.official}</h2>
+      {pais ? (
+        <>
+          <h4>temperature: {pais.temperature} Celcius</h4>
+          <img src={pais.weather_icons} alt="weather" />
+          <h4>
+            wind: {pais.wind_speed} mph direction {pais.wind_dir}
+          </h4>
+        </>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
     </div>
   );
 };
@@ -23,16 +47,14 @@ const Card = (props) => {
 const App = () => {
   const [busqueda, setBusqueda] = useState("");
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState("");
 
-  console.log(selectedCountry)
+  console.log(selectedCountry);
 
   useEffect(() => {
-    const fetchCountries = async () => {
-      const response = await axios.get("https://restcountries.com/v3.1/all");
-      setCountries(response.data);
-    };
-    fetchCountries();
+    axios
+      .get("https://restcountries.com/v3.1/all")
+      .then((res) => setCountries(res.data));
   }, []);
 
   const handleBusqueda = (e) => {
@@ -40,7 +62,7 @@ const App = () => {
   };
 
   const filterCountries = countries.filter((res) =>
-    res.name.common.toLowerCase().includes(busqueda.toLowerCase())
+    res.name.official.toLowerCase().includes(busqueda.toLowerCase())
   );
 
   const handleCardClick = (country) => {
@@ -59,10 +81,12 @@ const App = () => {
         <Card country={filterCountries[0]} />
       ) : (
         <>
-          {filterCountries.map((res) => (
-            <div key={res.name.common}>
-              {res.name.common}
-              <button onClick={() => handleCardClick(res)}>Show Card</button>
+          {filterCountries.map((country) => (
+            <div key={country.name.official}>
+              {country.name.official}
+              <button onClick={() => handleCardClick(country)}>
+                Show Card
+              </button>
             </div>
           ))}
           {selectedCountry && <Card country={selectedCountry} />}
