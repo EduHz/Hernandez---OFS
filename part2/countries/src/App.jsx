@@ -8,11 +8,13 @@ const Card = ({ country }) => {
   useEffect(() => {
     axios
       .get(
-        `http://api.weatherstack.com/current?access_key=0a82bdc4c6628b5f968dd500d30a8857&query=${country.name.official}`
+        `http://api.weatherstack.com/current?access_key=cd1ea156ddaa3daf7bef09a7a3a4d0aa&query=${country.name.official}`
       )
       .then((res) => setPais(res.data.current))
       .catch((error) => console.log(error));
   }, [country.name.official]);
+
+    console.log(pais)
 
   return (
     <div>
