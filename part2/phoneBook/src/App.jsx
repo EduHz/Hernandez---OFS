@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
-import axios from "axios";
+import personService from "./services/persons";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -11,13 +11,9 @@ function App() {
   const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then((res) => {
-        console.log(res, 'test axios');
-        setPersons(res.data);
-      })
-      .catch((error) => console.log(error));
+    personService.getAll().then((response) => {
+      setPersons(response.data);
+    });
   }, []);
 
   const addPerson = (event) => {
@@ -26,13 +22,20 @@ function App() {
       name: newName,
       number: newNumber,
     };
-    if (persons.find((ele) => ele.name === newName))
-      return alert(newName + " is already added to phonebook");
-    if (newNumber === "") return alert("The number can't be empty");
-    if (newName === "") return alert("The name can't be empty");
-    setPersons(persons.concat(personObj));
-    setNewName("");
-    setNewNumber("");
+
+    personService.create(personObj).then((response) => {
+      setPersons(persons.concat(response.data));
+      setNewName("");
+      setNewNumber("");
+    });
+  };
+
+  const removePerson = (id) => {
+    if (window.confirm("Do you really want to delete this person?")) {
+      personService.remove(id).then(() => {
+        setPersons(persons.filter((person) => person.id !== id));
+      });
+    }
   };
 
   const handleName = (e) => {
@@ -69,7 +72,7 @@ function App() {
 
       <h3>Numbers</h3>
 
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} removePerson={removePerson} />
     </>
   );
 }

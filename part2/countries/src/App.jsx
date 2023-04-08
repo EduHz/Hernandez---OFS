@@ -1,20 +1,21 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Card = ({ country }) => {
   const [pais, setPais] = useState(null);
   // const countryNameRef = useRef(country.name.official);
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     axios
       .get(
-        `http://api.weatherstack.com/current?access_key=cd1ea156ddaa3daf7bef09a7a3a4d0aa&query=${country.name.official}`
+        `http://api.weatherstack.com/current?access_key=${apiKey}&query=${country.name.official}`
       )
       .then((res) => setPais(res.data.current))
       .catch((error) => console.log(error));
   }, [country.name.official]);
 
-    console.log(pais)
+  console.log(pais);
 
   return (
     <div>

@@ -1,13 +1,14 @@
-const Persons = ({ filteredPersons }) => {
+const Persons = ({ filteredPersons, removePerson }) => {
   return (
     <>
-      {filteredPersons.map((res) => (
-        <p key={res.name}>
-          {res.name} {res.number}
-        </p>
+      {filteredPersons.map((person) => (
+        <div key={person.id}>
+          {person.name} {person.number}
+          <button onClick={() => removePerson(person.id)}>DELETE</button>
+        </div>
       ))}
     </>
   );
-}
+};
 
-export default Persons
+export default Persons;
