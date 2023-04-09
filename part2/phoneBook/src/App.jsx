@@ -23,15 +23,28 @@ function App() {
       number: newNumber,
     };
 
-    personService.create(personObj).then((response) => {
-      setPersons(persons.concat(response.data));
-      setNewName("");
-      setNewNumber("");
-    });
+    const existingPerson = persons.find((ele) => ele.name === newName);
+
+    if (existingPerson) {
+      if (window.confirm(`${existingPerson.name} is already added to phonebook, replace the old number with a new one?`)) {
+        personService.update(existingPerson.id, personObj).then((response) => {
+          console.log(response)
+          setPersons(persons.map((person) => (person.id !== existingPerson.id ? person : response.data)));
+          setNewName("");
+          setNewNumber("");
+        });
+      }
+    } else {
+      personService.create(personObj).then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewNumber("");
+      });
+    }
   };
 
-  const removePerson = (id) => {
-    if (window.confirm("Do you really want to delete this person?")) {
+  const removePerson = (id, name) => {
+    if (window.confirm(`Delete ${name} ?`)) {
       personService.remove(id).then(() => {
         setPersons(persons.filter((person) => person.id !== id));
       });
@@ -72,7 +85,10 @@ function App() {
 
       <h3>Numbers</h3>
 
-      <Persons filteredPersons={filteredPersons} removePerson={removePerson} />
+      <Persons
+        filteredPersons={filteredPersons}
+        removePerson={(id, name) => removePerson(id, name)}
+      />
     </>
   );
 }
