@@ -49,7 +49,7 @@ function App() {
             setNewNumber("");
             setTimeout(() => {
               setMensaje("");
-            }, 3500);
+            }, 3000);
           })
           .catch((error) => {
             setMensaje(
@@ -57,7 +57,7 @@ function App() {
             );
             setTimeout(() => {
               setMensaje("");
-            }, 3500);
+            }, 3000);
           });
       }
     } else {
@@ -68,7 +68,7 @@ function App() {
         setNewNumber("");
         setTimeout(() => {
           setMensaje("");
-        }, 3500);
+        }, 3000);
       });
     }
   };
