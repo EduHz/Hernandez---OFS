@@ -1,6 +1,9 @@
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
+
+app.use(cors())
 
 // Hardcode de array persons
 let persons = [
@@ -89,6 +92,7 @@ app.post("/api/persons", (req, res) => {
   res.json(person);
 });
 
-const PORT = 3001;
-app.listen(PORT);
-console.log("Server running in port " + PORT);
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running in ${PORT}`);
+})
