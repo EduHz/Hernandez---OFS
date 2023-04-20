@@ -15,7 +15,7 @@ let persons = [
 
 // Definimos las rutas
 app.get("/", (req, res) => {
-  res.send("<h2>Welcome to Phonebook...</h2>");
+  res.send("<h2>Welcome to Eduardo Phonebook 2...</h2>");
 });
 
 app.get("/api/persons", (req, res) => {
