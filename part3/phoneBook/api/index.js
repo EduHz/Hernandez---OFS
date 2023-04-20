@@ -3,8 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 
-
-app.use(cors());
+app.use(cors()); //Para compatabilidad
+app.use(express.static("build")); //Para buildear
 
 // Hardcode de array persons
 let persons = [
@@ -44,7 +44,6 @@ app.get("/api/persons/:id", (req, res) => {
 
 app.use(morgan("tiny")); //tiny , mantiene un registro red
 
-app.use(express.static('build'))
 
 app.use(
   morgan((tokens, req, res) => {
