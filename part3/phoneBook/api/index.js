@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 
+
 app.use(cors());
 
 // Hardcode de array persons
@@ -14,8 +15,8 @@ let persons = [
 ];
 
 // Definimos las rutas
-app.get("/", (req, res) => {
-  res.send("<h2>Welcome to Eduardo Phonebook 2...</h2>");
+app.get("/ruta", (req, res) => {
+  res.send("<h2>Welcome to Kitoo piza...</h2>");
 });
 
 app.get("/api/persons", (req, res) => {
@@ -42,6 +43,8 @@ app.get("/api/persons/:id", (req, res) => {
 // Utilizamos morgan como middleware
 
 app.use(morgan("tiny")); //tiny , mantiene un registro red
+
+app.use(express.static('build'))
 
 app.use(
   morgan((tokens, req, res) => {
