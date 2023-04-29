@@ -22,55 +22,27 @@ function App() {
   const addPerson = (event) => {
     event.preventDefault();
 
+    const existingPerson = persons.find((ele) => ele.name === newName);
+
+    if (existingPerson) {
+      alert(`${existingPerson.name} already exists in the phonebook.`);
+      return;
+    }
+
     const personObj = {
       name: newName,
       number: newNumber,
     };
 
-    const existingPerson = persons.find((ele) => ele.name === newName);
-
-    if (existingPerson) {
-      if (
-        window.confirm(
-          `${existingPerson.name} is already added to phonebook, replace the old number with a new one?`
-        )
-      ) {
-        personService
-          .update(existingPerson.id, personObj)
-          .then((response) => {
-            console.log(response);
-            setPersons(
-              persons.map((person) =>
-                person.id !== existingPerson.id ? person : response.data
-              )
-            );
-            setMensaje(`Replace ${newName} number`);
-            setNewName("");
-            setNewNumber("");
-            setTimeout(() => {
-              setMensaje("");
-            }, 3000);
-          })
-          .catch((error) => {
-            setMensaje(
-              `Information of ${newName} has already been removed from server`
-            );
-            setTimeout(() => {
-              setMensaje("");
-            }, 3000);
-          });
-      }
-    } else {
-      personService.create(personObj).then((response) => {
-        setPersons(persons.concat(response.data));
-        setMensaje(`Added ${newName}`);
-        setNewName("");
-        setNewNumber("");
-        setTimeout(() => {
-          setMensaje("");
-        }, 3000);
-      });
-    }
+    personService.create(personObj).then((response) => {
+      setPersons(persons.concat(response.data));
+      setMensaje(`Added ${newName}`);
+      setNewName("");
+      setNewNumber("");
+      setTimeout(() => {
+        setMensaje("");
+      }, 3000);
+    });
   };
 
   const removePerson = (id, name) => {

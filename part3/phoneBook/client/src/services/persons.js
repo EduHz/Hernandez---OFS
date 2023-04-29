@@ -27,19 +27,11 @@ const remove = async (id) => {
   }
 };
 
-const update = async (id, personObj) => {
-  try {
-    return await axios.put(`${baseUrl}/${id}`, personObj);
-  } catch (error) {
-    console.log("error en el update");
-  }
-};
 
 const personService = {
   getAll,
   create,
   remove,
-  update,
 };
 
 export default personService;
