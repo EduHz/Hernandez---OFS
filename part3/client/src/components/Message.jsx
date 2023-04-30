@@ -4,7 +4,7 @@ export default function Message({ mensaje }) {
       {mensaje && (
         <div
           className={
-            mensaje.includes("Information") ? "mensaje-error" : "mensaje"
+            mensaje.includes("Added") ? "mensaje" : "mensaje-error"
           }
         >
           {mensaje}
