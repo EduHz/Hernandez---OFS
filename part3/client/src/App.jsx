@@ -38,10 +38,10 @@ function App() {
         }, 3000);
       })
       .catch((error) => {
-        setMensaje(error.message)
-        // const errorMessage = error.response.data.error;
-        // console.log(errorMessage)
-        // setMensaje(errorMessage);
+        setMensaje(error.response.data.error);
+        setTimeout(() => {
+          setMensaje("");
+        }, 3000);
       });
   };
 
