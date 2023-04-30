@@ -15,7 +15,7 @@ const create = async (addPerson) => {
   try {
     return await axios.post(baseUrl, addPerson);
   } catch (error) {
-    console.log("error en create");
+    throw error
   }
 };
 
@@ -26,7 +26,6 @@ const remove = async (id) => {
     console.log("error en remove");
   }
 };
-
 
 const personService = {
   getAll,

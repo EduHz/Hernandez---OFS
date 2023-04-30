@@ -21,28 +21,28 @@ function App() {
 
   const addPerson = (event) => {
     event.preventDefault();
-
-    const existingPerson = persons.find((ele) => ele.name === newName);
-
-    if (existingPerson) {
-      alert(`${existingPerson.name} already exists in the phonebook.`);
-      return;
-    }
-
     const personObj = {
       name: newName,
       number: newNumber,
     };
 
-    personService.create(personObj).then((response) => {
-      setPersons(persons.concat(response.data));
-      setMensaje(`Added ${newName}`);
-      setNewName("");
-      setNewNumber("");
-      setTimeout(() => {
-        setMensaje("");
-      }, 3000);
-    });
+    personService
+      .create(personObj)
+      .then((response) => {
+        setPersons(persons.concat(response.data));
+        setMensaje(`Added ${newName}`);
+        setNewName("");
+        setNewNumber("");
+        setTimeout(() => {
+          setMensaje("");
+        }, 3000);
+      })
+      .catch((error) => {
+        setMensaje(error.message)
+        // const errorMessage = error.response.data.error;
+        // console.log(errorMessage)
+        // setMensaje(errorMessage);
+      });
   };
 
   const removePerson = (id, name) => {
