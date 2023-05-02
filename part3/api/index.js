@@ -11,9 +11,6 @@ app.use(express.json())
 app.use(morgan('tiny'))
 
 // Definimos las rutas
-app.get('/ruta', (req, res) => {
-  res.send('<h2>Welcome to Kitoo pizza...</h2>')
-})
 
 app.get('/api/persons', async (req, res) => {
   try {
