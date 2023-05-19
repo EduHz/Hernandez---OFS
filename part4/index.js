@@ -1,3 +1,4 @@
+require("dotenv").config();
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -13,8 +14,8 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model("Blog", blogSchema);
 
-const mongoUrl =
-  "mongodb+srv://eduhz:mora@phonebook.ngfvdsa.mongodb.net/?retryWrites=true&w=majority";
+const mongoUrl = process.env.MONGODB_URI;
+
 mongoose.connect(mongoUrl);
 
 app.use(cors());
@@ -32,6 +33,8 @@ app.post("/api/blogs", (request, response) => {
     response.status(201).json(result);
   });
 });
+
+console.log("Hakuna Matata");
 
 const PORT = 3003;
 app.listen(PORT, () => {
