@@ -2,7 +2,7 @@
 const Blogs = require("../models/blog");
 
 // Controlador para obtener todas las notas
-const getAllBlogss = (request, response) => {
+const getAllBlogs = (request, response) => {
   Blogs.find({}).then((blogs) => {
     response.json(blogs);
   });
@@ -11,13 +11,12 @@ const getAllBlogss = (request, response) => {
 // Controlador para crear una nueva nota
 const createBlogs = (request, response) => {
   const blog = new Blogs(request.body);
-
   blog.save().then((result) => {
     response.status(201).json(result);
   });
 };
 
 module.exports = {
-  getAllBlogss,
+  getAllBlogs,
   createBlogs,
 };
