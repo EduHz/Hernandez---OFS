@@ -5,7 +5,6 @@ const { MONGODB_URI } = require("./utils/config");
 const logger = require("./utils/logger");
 const middleware = require("./utils/middleware");
 const routes = require("./routes");
-
 const app = express();
 
 logger.info("connecting to", MONGODB_URI);
