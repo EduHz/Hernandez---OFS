@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "jest --verbose",
-    "lint": "eslint . --ext js"
+    "lint": "eslint . --ext js",
+    "test": "jest --verbose"  
   },
   "author": "",
   "license": "ISC",
